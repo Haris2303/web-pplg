@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* img slide */
+.img-slide {
+    @apply w-full md:h-[450px] bg-center object-fill rounded-lg
+}
+
+/* swiper */
+.swiper-pagination-bullet-active {
+    @apply bg-green-500
+}
+
+.swiper-button-prev::after {
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.swiper-button-next::after {
+    font-size: 20px;
+    font-weight: 900;
+}
