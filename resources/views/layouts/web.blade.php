@@ -36,9 +36,11 @@
         @endif
 
         <!-- Page Content -->
-        <main>
+        <main class="mb-32">
             {{ $slot }}
         </main>
+
+        @include('layouts.footer')
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
