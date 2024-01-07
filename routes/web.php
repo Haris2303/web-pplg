@@ -27,6 +27,14 @@ Route::get('/gallery', function () {
     return view('web.gallery');
 });
 
+Route::get('/contact', function () {
+    return view('web.contact');
+});
+
+Route::get('/about-app', function () {
+    return view('web.about.dev');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
