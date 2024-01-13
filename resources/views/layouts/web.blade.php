@@ -23,7 +23,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-[100dvh] bg-gray-100">
         @include('layouts.navbar')
 
         <!-- Page Heading -->
@@ -40,8 +40,9 @@
             {{ $slot }}
         </main>
 
-        @include('layouts.footer')
     </div>
+
+    @include('layouts.footer')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 

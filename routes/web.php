@@ -35,6 +35,26 @@ Route::get('/about-app', function () {
     return view('web.about.dev');
 });
 
+Route::get('/background', function () {
+    return view('web.about.background');
+});
+
+Route::get('/vision-mision', function () {
+    return view('web.about.vision-mision');
+});
+
+Route::get('/leadership', function () {
+    return view('web.about.leadership');
+});
+
+Route::get('/teachers', function () {
+    return view('web.about.teachers');
+});
+
+Route::get('/subjects', function () {
+    return view('web.about.subjects');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
