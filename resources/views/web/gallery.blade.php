@@ -1,5 +1,5 @@
 <x-web-layout>
-    <div class="max-w-screen-xl px-4 mx-auto mt-32">
+    <div class="max-w-screen-xl px-4 mx-auto pt-32">
         <div class="mb-10">
             <h2 class="text-3xl font-semibold text-center">Galeri</h2>
             <hr class="w-32 h-1 mx-auto mt-3 bg-sky-800 rounded-full">
