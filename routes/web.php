@@ -55,6 +55,11 @@ Route::get('/subjects', function () {
     return view('web.about.subjects');
 });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/students', [\App\Http\Controllers\Dashboard\StudentController::class, 'index'])->name('students');
+    Route::get('/student/create', [\App\Http\Controllers\Dashboard\StudentController::class, 'create'])->name('student.create');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
