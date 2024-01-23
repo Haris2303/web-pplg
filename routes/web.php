@@ -56,8 +56,35 @@ Route::get('/subjects', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    // Students
     Route::get('/students', [\App\Http\Controllers\Dashboard\StudentController::class, 'index'])->name('students');
     Route::get('/student/create', [\App\Http\Controllers\Dashboard\StudentController::class, 'create'])->name('student.create');
+    Route::post('/student', [\App\Http\Controllers\Dashboard\StudentController::class, 'store'])->name('student.store');
+    Route::delete('/student', [\App\Http\Controllers\Dashboard\ClassController::class, 'destroy'])->name('student.destroy');
+
+    // Classes
+    Route::get('/classes', [\App\Http\Controllers\Dashboard\ClassController::class, 'index'])->name('classes');
+    Route::get('/class/create', [\App\Http\Controllers\Dashboard\ClassController::class, 'create'])->name('class.create');
+    Route::post('/class', [\App\Http\Controllers\Dashboard\ClassController::class, 'store'])->name('class.store');
+    Route::get('/class/edit/{id}', [\App\Http\Controllers\Dashboard\ClassController::class, 'edit'])->name('class.edit');
+    Route::put('/class', [\App\Http\Controllers\Dashboard\ClassController::class, 'update'])->name('class.update');
+    Route::delete('/class', [\App\Http\Controllers\Dashboard\ClassController::class, 'destroy'])->name('class.destroy');
+
+    // Subjects
+    Route::get('/subjects', [\App\Http\Controllers\Dashboard\SubjectController::class, 'index'])->name('subjects');
+    Route::get('/subject/create', [\App\Http\Controllers\Dashboard\SubjectController::class, 'create'])->name('subject.create');
+    Route::get('/subject/edit/{id}', [\App\Http\Controllers\Dashboard\SubjectController::class, 'edit'])->name('subject.edit');
+    Route::post('/subject', [\App\Http\Controllers\Dashboard\SubjectController::class, 'store'])->name('subject.store');
+    Route::put('/subject', [\App\Http\Controllers\Dashboard\SubjectController::class, 'update'])->name('subject.update');
+    Route::delete('/subject', [\App\Http\Controllers\Dashboard\SubjectController::class, 'destroy'])->name('subject.destroy');
+
+    // Forces
+    Route::get('/forces', [\App\Http\Controllers\Dashboard\ForceController::class, 'index'])->name('forces');
+    Route::get('/force/create', [\App\Http\Controllers\Dashboard\ForceController::class, 'create'])->name('force.create');
+    Route::get('/force/edit', [\App\Http\Controllers\Dashboard\ForceController::class, 'edit'])->name('force.edit');
+    Route::post('/force', [\App\Http\Controllers\Dashboard\ForceController::class, 'store'])->name('force.store');
+    Route::put('/force/{id}', [\App\Http\Controllers\Dashboard\ForceController::class, 'update'])->name('force.update');
+    Route::delete('/force', [\App\Http\Controllers\Dashboard\ClassController::class, 'destroy'])->name('force.destroy');
 });
 
 Route::get('/dashboard', function () {
