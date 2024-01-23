@@ -14,7 +14,7 @@ class ClassController extends Controller
     public function index(): View
     {
         $data = [
-            'classes' => Classes::latest()->get(),
+            'classes' => Classes::latest()->paginate(10),
         ];
 
         return view('admin.classes.index', $data);
@@ -34,7 +34,7 @@ class ClassController extends Controller
         $class = new Classes($credential);
         $class->save();
 
-        return redirect('/classes');
+        return redirect('/classes')->with('success', 'Data kelas berhasil ditambahkan!');
     }
 
     public function edit($id): View
@@ -60,13 +60,13 @@ class ClassController extends Controller
             $class->save();
         }
 
-        return redirect('/classes');
+        return redirect('/classes')->with('success', 'Data kelas berhasil diubah!');
     }
 
     public function destroy(Request $request): RedirectResponse
     {
         Classes::where('id', $request->id)->delete();
 
-        return redirect('/classes');
+        return redirect('/classes')->with('success', 'Data kelas berhasil dihapus!');
     }
 }

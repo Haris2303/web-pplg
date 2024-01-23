@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Force extends Model
 {
     protected $table = 'forces';
+
+    protected $fillable = ['year'];
 }

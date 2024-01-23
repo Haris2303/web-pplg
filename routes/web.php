@@ -81,10 +81,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Forces
     Route::get('/forces', [\App\Http\Controllers\Dashboard\ForceController::class, 'index'])->name('forces');
     Route::get('/force/create', [\App\Http\Controllers\Dashboard\ForceController::class, 'create'])->name('force.create');
-    Route::get('/force/edit', [\App\Http\Controllers\Dashboard\ForceController::class, 'edit'])->name('force.edit');
+    Route::get('/force/edit/{id}', [\App\Http\Controllers\Dashboard\ForceController::class, 'edit'])->name('force.edit');
     Route::post('/force', [\App\Http\Controllers\Dashboard\ForceController::class, 'store'])->name('force.store');
-    Route::put('/force/{id}', [\App\Http\Controllers\Dashboard\ForceController::class, 'update'])->name('force.update');
-    Route::delete('/force', [\App\Http\Controllers\Dashboard\ClassController::class, 'destroy'])->name('force.destroy');
+    Route::put('/force', [\App\Http\Controllers\Dashboard\ForceController::class, 'update'])->name('force.update');
+    Route::delete('/force', [\App\Http\Controllers\Dashboard\ForceController::class, 'destroy'])->name('force.destroy');
 });
 
 Route::get('/dashboard', function () {

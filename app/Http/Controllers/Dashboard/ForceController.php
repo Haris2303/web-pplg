@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Force;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,7 +12,11 @@ class ForceController extends Controller
 {
     public function index(): View
     {
-        return view('admin.forces.index');
+        $data = [
+            'forces' => Force::latest()->paginate(10)
+        ];
+
+        return view('admin.forces.index', $data);
     }
 
     public function create(): View
@@ -19,18 +24,50 @@ class ForceController extends Controller
         return view('admin.forces.create');
     }
 
-    public function store(): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        return redirect('/forces');
+        $credential = $request->validate([
+            'year' => ['required']
+        ]);
+
+        $force = new Force($credential);
+        $force->save();
+
+        return redirect('/forces')->with('success', 'Data angkatan berhasil ditambahkan!');
     }
 
-    public function edit(): View
+    public function edit($id): View
     {
-        return view('admin.forces.edit');
+        $force = Force::where('id', $id)->firstOrFail();
+
+        $data = [
+            'force' => $force
+        ];
+
+        return view('admin.forces.edit', $data);
     }
 
-    public function update(): RedirectResponse
+    public function update($request): RedirectResponse
     {
-        return redirect('/forces');
+        $force = Force::find($request->id);
+
+        if ($request->year != $force->year) {
+
+            $request->validate([
+                'year' => ['required', 'unique:' . Force::class]
+            ]);
+
+            $force->year = $request->year;
+            $force->save();
+        }
+
+        return redirect()->route('forces')->with('success', 'Data angkatan berhasil diubah!');
+    }
+
+    public function destroy(Request $request): RedirectResponse
+    {
+        Force::find($request->id)->delete();
+
+        return redirect()->route('forces')->with('success', 'Data angkatan berhasil dihapus!');
     }
 }

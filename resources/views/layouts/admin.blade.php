@@ -20,11 +20,12 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-gray-100 dark:bg-slate-600">
         @include('layouts.sidebar')
 
         <!-- Page Content -->
-        <main class="p-4 sm:ml-64 pt-20">
+        <main class="p-4
+        sm:ml-64 pt-20">
             {{ $slot }}
         </main>
 

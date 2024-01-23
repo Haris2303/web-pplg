@@ -12,7 +12,7 @@ class SubjectController extends Controller
 {
     public function index(): View
     {
-        $subjects = Subject::latest()->get();
+        $subjects = Subject::latest()->paginate(10);
 
         $data = [
             'subjects' => $subjects
@@ -29,13 +29,13 @@ class SubjectController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $credential = $request->validate([
-            'name' => ['required']
+            'name' => ['required', 'unique:' . Subject::class]
         ]);
 
         $subject = new Subject($credential);
         $subject->save();
 
-        return redirect('/subjects');
+        return redirect('/subjects')->with('success', 'Data Mata Pelajaran berhasil ditambahkan!');
     }
 
     public function edit($id): View
@@ -63,13 +63,13 @@ class SubjectController extends Controller
             $subject->save();
         }
 
-        return redirect('/subjects');
+        return redirect('/subjects')->with('success', 'Data Mata Pelajaran berhasil diubah!');
     }
 
     public function destroy(Request $request): RedirectResponse
     {
         Subject::find($request->id)->delete();
 
-        return redirect(route('subjects'));
+        return redirect()->route('subjects')->with('success', 'Data Mata Pelajaran berhasil dihapus!');
     }
 }
