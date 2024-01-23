@@ -51,16 +51,18 @@ class SubjectController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required']
-        ]);
-
         $subject = Subject::find($request->id);
 
         if ($request->name != $subject->name) {
+
+            $request->validate([
+                'name' => ['required', 'unique:' . Subject::class]
+            ]);
+
             $subject->name = $request->name;
             $subject->save();
         }
+
         return redirect('/subjects');
     }
 
