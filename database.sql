@@ -1,1 +1,5 @@
 CREATE DATABASE pplg
+
+USE pplg
+
+SELECT * FROM users;

@@ -74,7 +74,13 @@
                             </td>
                             <td class="px-6 py-4">
                                 <a href="#"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> |
+                                <form action="{{ route('student.destroy', [$student->user->id]) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit"
+                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Hapus</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

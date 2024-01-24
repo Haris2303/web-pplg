@@ -60,7 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/students', [\App\Http\Controllers\Dashboard\StudentController::class, 'index'])->name('students');
     Route::get('/student/create', [\App\Http\Controllers\Dashboard\StudentController::class, 'create'])->name('student.create');
     Route::post('/student', [\App\Http\Controllers\Dashboard\StudentController::class, 'store'])->name('student.store');
-    Route::delete('/student', [\App\Http\Controllers\Dashboard\ClassController::class, 'destroy'])->name('student.destroy');
+    Route::delete('/student/{id}', [\App\Http\Controllers\Dashboard\StudentController::class, 'destroy'])->name('student.destroy');
 
     // Classes
     Route::get('/classes', [\App\Http\Controllers\Dashboard\ClassController::class, 'index'])->name('classes');
