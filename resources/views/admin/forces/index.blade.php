@@ -1,12 +1,17 @@
 <x-dashboard-layout>
 
+    <div class="mb-5">
+        <h2 class="text-3xl text-center sm:text-left text-gray-900 dark:text-white font-bold">Angkatan</h2>
+        <hr>
+    </div>
+
     @if (session()->has('success'))
-        <x-alert type='success' />
+        <x-alert type="success" />
     @endif
 
     <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
         <div>
-            <a href="{{ route('student.create') }}"
+            <a href="{{ route('force.create') }}"
                 class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Tambah</a>
         </div>
         <label for="table-search" class="sr-only">Search</label>
@@ -25,7 +30,6 @@
         </div>
     </div>
 
-
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -34,16 +38,7 @@
                         #
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nama
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Email
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Kelas
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Jenis Kelamin
+                        Tahun Angkatan
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Aksi
@@ -51,8 +46,8 @@
                 </tr>
             </thead>
             <tbody>
-                @if (count($students))
-                    @foreach ($students as $student)
+                @if (count($forces))
+                    @foreach ($forces as $force)
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <th scope="row"
@@ -61,23 +56,15 @@
                             </th>
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $student->user->name }}
+                                {{ $force->year }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $student->user->email }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $student->hasClass->name }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $student->gender }}
-                            </td>
-                            <td class="px-6 py-4">
-                                <a href="#"
+                                <a href="/force/edit/{{ $force->id }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> |
-                                <form action="{{ route('student.destroy', [$student->user->id]) }}" method="post">
+                                <form action="{{ route('force.destroy') }}" method="post" class="inline">
                                     @csrf
                                     @method('delete')
+                                    <input type="hidden" name="id" value="{{ $force->id }}">
                                     <button type="submit"
                                         class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Hapus</button>
                                 </form>
@@ -94,6 +81,6 @@
         </table>
     </div>
 
-    {{ $students->links() }}
+    {{ $forces->links() }}
 
 </x-dashboard-layout>

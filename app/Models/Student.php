@@ -10,6 +10,8 @@ class Student extends Model
 {
     protected $table = 'students';
 
+    protected $guarded = ['id'];
+
     public function hasClass(): BelongsTo
     {
         return $this->belongsTo(Classes::class, 'class_id', 'id');

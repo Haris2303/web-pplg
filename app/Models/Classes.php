@@ -10,6 +10,8 @@ class Classes extends Model
 {
     protected $table = 'classes';
 
+    protected $fillable = ['name'];
+
     public function Students(): HasMany
     {
         return $this->hasMany(Student::class, 'class_id', 'id');
