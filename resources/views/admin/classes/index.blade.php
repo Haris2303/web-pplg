@@ -1,5 +1,10 @@
 <x-dashboard-layout>
 
+    <div class="mb-5">
+        <h2 class="text-3xl text-center sm:text-left text-gray-900 dark:text-white font-bold">Kelas</h2>
+        <hr>
+    </div>
+
     @if (session()->has('success'))
         <x-alert type="success" />
     @endif
@@ -35,7 +40,7 @@
                     <th scope="col" class="px-6 py-3">
                         Kelas
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3 text-center">
                         Aksi
                     </th>
                 </tr>
@@ -54,15 +59,23 @@
                                 {{ $class->name }}
                             </th>
                             <td class="px-6 py-4">
-                                <a href="/class/edit/{{ $class->id }}"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> |
-                                <form action="{{ route('class.destroy') }}" method="post" class="inline">
-                                    @csrf
-                                    @method('delete')
-                                    <input type="hidden" name="id" value="{{ $class->id }}">
-                                    <button type="submit"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Hapus</button>
-                                </form>
+                                <div class="w-full flex gap-3 justify-center">
+                                    <div>
+                                        <x-button-tooltip-edit :href="route('class.edit', [$class->id])" :id="$class->id">
+                                            Edit
+                                        </x-button-tooltip-edit>
+                                    </div>
+                                    <div>
+                                        <form action="{{ route('class.destroy') }}" method="post" class="inline">
+                                            @csrf
+                                            @method('delete')
+                                            <input type="hidden" name="id" value="{{ $class->id }}">
+                                            <x-button-tooltip-delete :id="$class->id">
+                                                Hapus
+                                            </x-button-tooltip-delete>
+                                        </form>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

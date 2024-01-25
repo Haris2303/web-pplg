@@ -1,7 +1,7 @@
 <x-dashboard-layout>
 
     <div class="mb-5">
-        <h2 class="text-3xl text-center sm:text-left text-gray-900 dark:text-white font-bold">Mata Kuliah</h2>
+        <h2 class="text-3xl text-center sm:text-left text-gray-900 dark:text-white font-bold">Mata Pelajaran</h2>
         <hr>
     </div>
 
@@ -38,9 +38,9 @@
                         #
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Mata Pelajaran
+                        Nama
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3 text-center">
                         Aksi
                     </th>
                 </tr>
@@ -50,24 +50,28 @@
                     @foreach ($subjects as $subject)
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $loop->iteration + 10 * ((request()->page ?? 1) - 1) }}
-                            </th>
-                            <th scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            </td>
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $subject->name }}
-                            </th>
+                            </td>
                             <td class="px-6 py-4">
-                                <a href="/subject/edit/{{ $subject->id }}"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> |
-                                <form action="{{ route('subject.destroy') }}" method="post" class="inline">
-                                    @csrf
-                                    @method('delete')
-                                    <input type="hidden" name="id" value="{{ $subject->id }}">
-                                    <button type="submit"
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Hapus</button>
-                                </form>
+                                <div class="w-full flex gap-2 justify-center">
+                                    <div>
+                                        <x-button-tooltip-edit :href="__('/subject/edit/' . $subject->id)" :id="$subject->name">
+                                            Edit
+                                        </x-button-tooltip-edit>
+                                    </div>
+                                    <div>
+                                        <form action="{{ route('subject.destroy', [$subject->id]) }}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <input type="hidden" name="id" value="{{ $subject->id }}">
+                                            <x-button-tooltip-delete :id="$subject->name">Hapus</x-button-tooltip-delete>
+                                        </form>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

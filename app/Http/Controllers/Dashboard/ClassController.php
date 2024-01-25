@@ -50,9 +50,9 @@ class ClassController extends Controller
     {
         $class = Classes::where('id', $request->id)->firstOrFail();
 
-        if ($request->name != $class->id) {
-            $credential = $request->validate([
-                'name' => ['required']
+        if ($request->name != $class->name) {
+            $request->validate([
+                'name' => ['required', 'unique:' . Classes::class]
             ]);
 
             $class = Classes::find($request->id);
