@@ -82,6 +82,54 @@ class StudentController extends Controller
         return redirect('/students');
     }
 
+    public function edit($id): View
+    {
+        $data = [
+            'student' => Student::where('id', $id)->firstOrFail(),
+            'classes' => Classes::latest()->get(),
+            'forces' => Force::latest()->get()
+        ];
+
+        return view('admin.students.edit', $data);
+    }
+
+    public function update(Request $request, $id): RedirectResponse
+    {
+        $rules = [
+            'name' => ['required', 'string'],
+            'nis' => ['required', 'numeric'],
+            'nisn' => ['required', 'numeric'],
+            'gender' => ['required'],
+            'birth' => ['required'],
+            'address' => ['required'],
+            'religion' => ['required'],
+            'mother' => ['required'],
+            'father' => ['required'],
+            'class_id' => ['required'],
+            'force_id' => ['required']
+        ];
+
+        $student = Student::where('id', $id)->firstOrFail();
+
+        if ($request->nis !== $student->nis || $request->nisn !== $student->nisn) {
+            $rules['nis'] = ['required', 'numeric', 'unique:' . Student::class];
+            $rules['nisn'] = ['required', 'numeric', 'unique:' . Student::class];
+        }
+
+        // update user name
+        User::where('id', $student->user_id)->update($request->validate([
+            'name' => ['required', 'string']
+        ]));
+
+        // validasi student request
+        $credential = $request->validate($rules);
+
+        // update user
+        $student->update($credential);
+
+        return redirect()->route('students')->with('success', 'Data siswa berhasil diubah!');
+    }
+
     public function destroy($id): RedirectResponse
     {
         $user = User::find($id);

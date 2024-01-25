@@ -55,12 +55,25 @@ Route::get('/subjects', function () {
     return view('web.about.subjects');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
+// Admin
+Route::middleware(['auth', 'verified', \App\Http\Middleware\RoleAdminMiddleWare::class])->group(function () {
     // Students
     Route::get('/students', [\App\Http\Controllers\Dashboard\StudentController::class, 'index'])->name('students');
     Route::get('/student/create', [\App\Http\Controllers\Dashboard\StudentController::class, 'create'])->name('student.create');
     Route::post('/student', [\App\Http\Controllers\Dashboard\StudentController::class, 'store'])->name('student.store');
+    Route::get('/student/edit/{id}', [\App\Http\Controllers\Dashboard\StudentController::class, 'edit'])->name('student.edit');
+    Route::put('/student/{id}', [\App\Http\Controllers\Dashboard\StudentController::class, 'update'])->name('student.update');
     Route::delete('/student/{id}', [\App\Http\Controllers\Dashboard\StudentController::class, 'destroy'])->name('student.destroy');
+    // Student ajax
+    Route::resource('studentAjax', \App\Http\Controllers\Ajax\StudentAjaxController::class);
+
+    // teachers
+    Route::get('/teachers', [\App\Http\Controllers\Dashboard\TeacherController::class, 'index'])->name('teachers');
+    Route::get('/teacher/create', [\App\Http\Controllers\Dashboard\TeacherController::class, 'create'])->name('teacher.create');
+    Route::post('/teacher', [\App\Http\Controllers\Dashboard\TeacherController::class, 'store'])->name('teacher.store');
+    Route::get('/teacher/edit/{id}', [\App\Http\Controllers\Dashboard\TeacherController::class, 'edit'])->name('teacher.edit');
+    Route::put('/teacher/{id}', [\App\Http\Controllers\Dashboard\TeacherController::class, 'update'])->name('teacher.update');
+    Route::delete('/teacher/{id}', [\App\Http\Controllers\Dashboard\TeacherController::class, 'destroy'])->name('teacher.destroy');
 
     // Classes
     Route::get('/classes', [\App\Http\Controllers\Dashboard\ClassController::class, 'index'])->name('classes');
@@ -77,6 +90,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/subject', [\App\Http\Controllers\Dashboard\SubjectController::class, 'store'])->name('subject.store');
     Route::put('/subject', [\App\Http\Controllers\Dashboard\SubjectController::class, 'update'])->name('subject.update');
     Route::delete('/subject', [\App\Http\Controllers\Dashboard\SubjectController::class, 'destroy'])->name('subject.destroy');
+    // Ajax Subject
+    Route::resource('/subjectAjax', \App\Http\Controllers\Ajax\SubjectAjaxController::class);
 
     // Forces
     Route::get('/forces', [\App\Http\Controllers\Dashboard\ForceController::class, 'index'])->name('forces');
@@ -85,6 +100,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/force', [\App\Http\Controllers\Dashboard\ForceController::class, 'store'])->name('force.store');
     Route::put('/force', [\App\Http\Controllers\Dashboard\ForceController::class, 'update'])->name('force.update');
     Route::delete('/force', [\App\Http\Controllers\Dashboard\ForceController::class, 'destroy'])->name('force.destroy');
+});
+
+// Teacher
+Route::middleware(['auth', 'verified', \App\Http\Middleware\RoleTeacherMiddleware::class])->group(function () {
+    // attendances
+    Route::resource('attendance', \App\Http\Controllers\Teacher\AttendanceResourceController::class);
+});
+
+// Student
+Route::middleware(['auth', 'verified', \App\Http\Middleware\RoleStudentMiddleware::class])->group(function () {
 });
 
 Route::get('/dashboard', function () {
