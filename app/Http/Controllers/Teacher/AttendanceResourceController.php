@@ -19,7 +19,7 @@ class AttendanceResourceController extends Controller
     public function index(): View
     {
         $data = [
-            'attendances' => Attendance::latest()->get(),
+            'attendances' => Attendance::where('teacher_id', Auth::user()->teacher->id)->latest()->get(),
             'classes' => Classes::latest()->get(),
             'subjects' => Subject::latest()->get()
         ];

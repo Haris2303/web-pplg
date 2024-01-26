@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attendance;
 use App\Models\Classes;
 use App\Models\Force;
 use App\Models\Student;
@@ -79,7 +80,7 @@ class StudentController extends Controller
             $student->save();
         });
 
-        return redirect('/students');
+        return redirect('/students')->with('success', 'Data siswa berhasil ditambahkan!');
     }
 
     public function edit($id): View
@@ -134,8 +135,12 @@ class StudentController extends Controller
     {
         $user = User::find($id);
 
+        $student = Student::where('user_id', $user->id)->firstOrFail();
+
+        Attendance::where('student_id', $student->id)->delete();
+
         // delete student
-        Student::where('user_id', $id)->delete();
+        $student->delete();
 
         // delete user
         $user->delete();

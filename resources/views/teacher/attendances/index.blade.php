@@ -8,6 +8,49 @@
         <x-alert type="success" />
     @endif
 
+    <div class="my-10">
+        <form action="{{ route('attendance.create') }}" method="GET">
+            <div class="mb-3">
+                <label for="class" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelas</label>
+                <select name="class_id" id="class"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected disabled>-- Pilih Kelas --</option>
+                    @foreach ($classes as $class)
+                        <option value="{{ $class->id }}">{{ $class->name }}</option>
+                    @endforeach
+                </select>
+                <x-input-error :messages="$errors->get('class_id')" />
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mata
+                    Pelajaran</label>
+                <select name="subject_id" id="subject"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option selected disabled>-- Pilih Mata Pelajaran --</option>
+                    @foreach ($subjects as $subject)
+                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                    @endforeach
+                </select>
+                <x-input-error :messages="$errors->get('subject_id')" />
+            </div>
+            <div class="mb-3">
+                <label for="date"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
+                <input type="date" name="date" id="date"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    value="{{ old('date') }}" required="">
+                <x-input-error :messages="$errors->get('date')" />
+            </div>
+            <button type="submit"
+                class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Mulai
+                Absen</button>
+        </form>
+    </div>
+
+    <div class="mb-5">
+        <h3 class="text-xl font-bold">Data Absensi</h3>
+    </div>
+
     <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
         <label for="table-search" class="sr-only">Search</label>
         <div class="relative">
@@ -25,7 +68,7 @@
         </div>
     </div>
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-10">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -82,15 +125,6 @@
                                             Edit
                                         </x-button-tooltip-edit>
                                     </div>
-                                    <div>
-                                        <form action="{{ route('attendance.destroy', [$attendance->id]) }}"
-                                            method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <input type="hidden" name="id" value="{{ $attendance->id }}">
-                                            <x-button-tooltip-delete :id="$attendance->name">Hapus</x-button-tooltip-delete>
-                                        </form>
-                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -103,44 +137,5 @@
                 @endif
             </tbody>
         </table>
-    </div>
-
-    <div class="mt-20">
-        <form action="{{ route('attendance.create') }}" method="GET">
-            <div class="mb-3">
-                <label for="class" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelas</label>
-                <select name="class_id" id="class"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected disabled>-- Pilih Kelas --</option>
-                    @foreach ($classes as $class)
-                        <option value="{{ $class->id }}">{{ $class->name }}</option>
-                    @endforeach
-                </select>
-                <x-input-error :messages="$errors->get('class_id')" />
-            </div>
-            <div class="mb-3">
-                <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mata
-                    Pelajaran</label>
-                <select name="subject_id" id="subject"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected disabled>-- Pilih Mata Pelajaran --</option>
-                    @foreach ($subjects as $subject)
-                        <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                    @endforeach
-                </select>
-                <x-input-error :messages="$errors->get('subject_id')" />
-            </div>
-            <div class="mb-3">
-                <label for="date"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
-                <input type="date" name="date" id="date"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    value="{{ old('date') }}" required="">
-                <x-input-error :messages="$errors->get('date')" />
-            </div>
-            <button type="submit"
-                class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Mulai
-                Absen</button>
-        </form>
     </div>
 </x-dashboard-layout>

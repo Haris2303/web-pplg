@@ -27,10 +27,10 @@
                         #
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Nama
+                        NISN
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Email
+                        Nama
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Kelas
@@ -54,11 +54,12 @@
                             </th>
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $student->nisn }}
+                            </th>
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $student->user->name }}
                             </th>
-                            <td class="px-6 py-4">
-                                {{ $student->user->email }}
-                            </td>
                             <td class="px-6 py-4">
                                 {{ $student->hasClass->name }}
                             </td>
@@ -105,14 +106,140 @@
     <!-- Main modal -->
 
     <x-modal-view :title="__('Detail Siswa')">
-        <div class="flex">
-            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                Nama:
-            </p>
-            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-name">
-                Haris
-            </p>
-        </div>
+        <table class="text-left">
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 mr-5">
+                        Nama
+                    </p>
+                </th>
+                <td>
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-name">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        NIS
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-nis">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        NISN
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-nisn">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Email
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-email">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Jenis Kelamin
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-gender">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Agama
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-religion">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Kelas
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-class">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Angkatan
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-force">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Nama Ayah
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-father">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Nama Ibu
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-mother">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Alamat
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-address">
+                        -
+                    </span>
+                </td>
+            </tr>
+        </table>
     </x-modal-view>
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
@@ -120,6 +247,8 @@
 
     <script>
         $('.view-button').on('click', function() {
+            $
+
             var id = $(this).data('id')
 
             $.ajax({
@@ -127,6 +256,16 @@
                 type: 'GET',
                 success: function(response) {
                     $('#info-name').html(response.result.user.name)
+                    $('#info-nis').html(response.result.student.nis)
+                    $('#info-nisn').html(response.result.student.nisn)
+                    $('#info-email').html(response.result.user.email)
+                    $('#info-gender').html(response.result.student.gender)
+                    $('#info-religion').html(response.result.student.religion)
+                    $('#info-class').html(response.result.class.name)
+                    $('#info-force').html(response.result.force.year)
+                    $('#info-father').html(response.result.student.father)
+                    $('#info-mother').html(response.result.student.mother)
+                    $('#info-address').html(response.result.student.address)
                 }
             })
         })

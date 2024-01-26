@@ -36,7 +36,7 @@
         @endif
 
         <!-- Page Content -->
-        <main class="mb-32">
+        <main class="pb-32">
             {{ $slot }}
         </main>
 
