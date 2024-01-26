@@ -74,6 +74,8 @@ Route::middleware(['auth', 'verified', \App\Http\Middleware\RoleAdminMiddleWare:
     Route::get('/teacher/edit/{id}', [\App\Http\Controllers\Dashboard\TeacherController::class, 'edit'])->name('teacher.edit');
     Route::put('/teacher/{id}', [\App\Http\Controllers\Dashboard\TeacherController::class, 'update'])->name('teacher.update');
     Route::delete('/teacher/{id}', [\App\Http\Controllers\Dashboard\TeacherController::class, 'destroy'])->name('teacher.destroy');
+    // teacher ajax
+    Route::get('/teacherAjax/{id}', [\App\Http\Controllers\TeacherAjaxController::class, 'show']);
 
     // Classes
     Route::get('/classes', [\App\Http\Controllers\Dashboard\ClassController::class, 'index'])->name('classes');

@@ -76,7 +76,8 @@
                                         </form>
                                     </div>
                                     <div>
-                                        <x-button-tooltip-view :id="$teacher->id">Lihat Detail</x-button-tooltip-view>
+                                        <x-button-tooltip-view :id="$teacher->id" :dataid="$teacher->id">Lihat
+                                            Detail</x-button-tooltip-view>
                                     </div>
                                 </div>
 
@@ -98,18 +99,130 @@
     <!-- Main modal -->
 
     <x-modal-view :title="__('Detail Guru')">
-        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-            With less than a month to go before the European Union enacts new
-            consumer privacy laws for its citizens, companies around the world
-            are updating their terms of service agreements to comply.
-        </p>
-        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-            The European Union’s General Data Protection Regulation (G.D.P.R.)
-            goes into effect on May 25 and is meant to ensure a common set of
-            data rights in the European Union. It requires organizations to
-            notify users as soon as possible of high-risk data breaches that
-            could personally affect them.
-        </p>
+        <table class="text-left">
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 mr-5">
+                        Nama
+                    </p>
+                </th>
+                <td>
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-name">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        NIP
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-nip">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Email
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-email">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Tanggal Lahir
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-birth">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Jenis Kelamin
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-gender">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Agama
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-religion">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Pendidikan
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-education">
+                        -
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Alamat
+                    </p>
+                </th>
+                <td class="">
+                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-address">
+                        -
+                    </span>
+                </td>
+            </tr>
+        </table>
     </x-modal-view>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+
+    <script>
+        $('.view-button').on('click', function() {
+            $
+
+            var id = $(this).data('id')
+
+            $.ajax({
+                url: 'teacherAjax/' + id,
+                type: 'GET',
+                success: function(response) {
+                    $('#info-name').html(response.result.user.name)
+                    $('#info-nip').html(response.result.teacher.nip)
+                    $('#info-email').html(response.result.user.email)
+                    $('#info-birth').html(response.result.teacher.birth)
+                    $('#info-gender').html(response.result.teacher.gender)
+                    $('#info-religion').html(response.result.teacher.religion)
+                    $('#info-education').html(response.result.teacher.education)
+                    $('#info-address').html(response.result.teacher.address)
+                }
+            })
+        })
+    </script>
 
 </x-dashboard-layout>

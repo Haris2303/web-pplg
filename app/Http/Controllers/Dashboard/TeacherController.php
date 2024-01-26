@@ -74,7 +74,7 @@ class TeacherController extends Controller
             $teacher->save();
         });
 
-        return redirect('/teachers');
+        return redirect('/teachers')->with('success', 'Data guru berhasil ditambahkan!');
     }
 
     public function edit($id): View
