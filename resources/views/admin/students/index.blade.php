@@ -27,6 +27,9 @@
                         #
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Foto
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         NISN
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -34,9 +37,6 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Kelas
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-center">
-                        Jenis Kelamin
                     </th>
                     <th scope="col" class="px-6 py-3 text-center">
                         Aksi
@@ -54,6 +54,10 @@
                             </th>
                             <th scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <img src="{{ asset(($student->picture === 'default.png') ? '/assets/profile/default.png' : 'storage/' . $student->picture) }}" alt="{{ $student->user->name }}" class="w-24">
+                            </th>
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $student->nisn }}
                             </th>
                             <th scope="row"
@@ -62,9 +66,6 @@
                             </th>
                             <td class="px-6 py-4">
                                 {{ $student->hasClass->name }}
-                            </td>
-                            <td class="px-6 py-4 text-center">
-                                {{ $student->gender }}
                             </td>
                             <td class="px-6 py-4">
                                 <div class="w-full flex gap-2 justify-center">
@@ -106,140 +107,145 @@
     <!-- Main modal -->
 
     <x-modal-view :title="__('Detail Siswa')">
-        <table class="text-left">
-            <tr>
-                <th>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400 mr-5">
-                        Nama
-                    </p>
-                </th>
-                <td>
-                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-name">
-                        -
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        NIS
-                    </p>
-                </th>
-                <td class="">
-                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-nis">
-                        -
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        NISN
-                    </p>
-                </th>
-                <td class="">
-                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-nisn">
-                        -
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        Email
-                    </p>
-                </th>
-                <td class="">
-                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-email">
-                        -
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        Jenis Kelamin
-                    </p>
-                </th>
-                <td class="">
-                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-gender">
-                        -
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        Agama
-                    </p>
-                </th>
-                <td class="">
-                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-religion">
-                        -
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        Kelas
-                    </p>
-                </th>
-                <td class="">
-                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-class">
-                        -
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        Angkatan
-                    </p>
-                </th>
-                <td class="">
-                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-force">
-                        -
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        Nama Ayah
-                    </p>
-                </th>
-                <td class="">
-                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-father">
-                        -
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        Nama Ibu
-                    </p>
-                </th>
-                <td class="">
-                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-mother">
-                        -
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                        Alamat
-                    </p>
-                </th>
-                <td class="">
-                    : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-address">
-                        -
-                    </span>
-                </td>
-            </tr>
-        </table>
+        <div class="flex justify-between">
+            <table class="text-left text-gray-500 dark:text-gray-400">
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed mr-5">
+                            Nama
+                        </p>
+                    </th>
+                    <td>
+                        : <span class="text-base leading-relaxed" id="info-name">
+                            -
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed">
+                            NIS
+                        </p>
+                    </th>
+                    <td class="">
+                        : <span class="text-base leading-relaxed" id="info-nis">
+                            -
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed">
+                            NISN
+                        </p>
+                    </th>
+                    <td class="">
+                        : <span class="text-base leading-relaxed" id="info-nisn">
+                            -
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed">
+                            Email
+                        </p>
+                    </th>
+                    <td class="">
+                        : <span class="text-base leading-relaxed" id="info-email">
+                            -
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed">
+                            Jenis Kelamin
+                        </p>
+                    </th>
+                    <td class="">
+                        : <span class="text-base leading-relaxed" id="info-gender">
+                            -
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed">
+                            Agama
+                        </p>
+                    </th>
+                    <td class="">
+                        : <span class="text-base leading-relaxed" id="info-religion">
+                            -
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed">
+                            Kelas
+                        </p>
+                    </th>
+                    <td class="">
+                        : <span class="text-base leading-relaxed" id="info-class">
+                            -
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed">
+                            Angkatan
+                        </p>
+                    </th>
+                    <td class="">
+                        : <span class="text-base leading-relaxed" id="info-force">
+                            -
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                            Nama Ayah
+                        </p>
+                    </th>
+                    <td class="">
+                        : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-father">
+                            -
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                            Nama Ibu
+                        </p>
+                    </th>
+                    <td class="">
+                        : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-mother">
+                            -
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                            Alamat
+                        </p>
+                    </th>
+                    <td class="">
+                        : <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400" id="info-address">
+                            -
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                <img src="#" alt="Picture" id="info-picture" class="w-52">
+            </div>
+        </div>
     </x-modal-view>
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
@@ -266,6 +272,10 @@
                     $('#info-father').html(response.result.student.father)
                     $('#info-mother').html(response.result.student.mother)
                     $('#info-address').html(response.result.student.address)
+                    
+                    const picture = response.result.student.picture
+                    const src = (picture === 'default.png') ? '/assets/profile/' + picture : `storage/${picture}`
+                    $('#info-picture').attr('src', src)
                 }
             })
         })

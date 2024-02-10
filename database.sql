@@ -2,4 +2,4 @@ CREATE DATABASE pplg
 
 USE pplg
 
-SELECT * FROM users;
+SELECT * FROM teachers;

@@ -58,8 +58,13 @@ class StudentController extends Controller
                 'mother' => ['required'],
                 'father' => ['required'],
                 'class_id' => ['required'],
-                'force_id' => ['required']
+                'force_id' => ['required'],
+                'picture' => ['image', 'file', 'max:1024']
             ]);
+
+            if($request->file('picture')) {
+                $credentialStudent['picture'] = $request->file('picture')->store('img/students/profile');
+            }
 
             // make password
             $credentialUser['password'] = Hash::make('pass' . $request->nisn);

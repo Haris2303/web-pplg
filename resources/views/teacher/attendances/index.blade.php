@@ -10,6 +10,7 @@
 
     <div class="my-10">
         <form action="{{ route('attendance.create') }}" method="GET">
+            @csrf
             <div class="mb-3">
                 <label for="class" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelas</label>
                 <select name="class_id" id="class"
@@ -48,7 +49,7 @@
     </div>
 
     <div class="mb-5">
-        <h3 class="text-xl font-bold">Data Absensi</h3>
+        <h3 class="text-xl font-bold dark:text-white">Data Absensi</h3>
     </div>
 
     <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
@@ -132,7 +133,7 @@
                 @else
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td colspan="6" class="text-center py-5">Tidak ada data</td>
+                        <td colspan="7" class="text-center py-5">Tidak ada data</td>
                     </tr>
                 @endif
             </tbody>

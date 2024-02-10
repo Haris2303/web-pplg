@@ -52,8 +52,13 @@ class TeacherController extends Controller
                 'gender' => ['required'],
                 'birth' => ['required'],
                 'address' => ['required'],
-                'religion' => ['required']
+                'religion' => ['required'],
+                'picture' => ['image', 'file', 'max:1024']
             ]);
+
+            if($request->file('picture')) {
+                $credentialTeacher['picture'] = $request->file('picture')->store('img/teachers/profile');
+            }
 
             // make password
             $credentialUser['password'] = Hash::make('pass' . $request->nip);
