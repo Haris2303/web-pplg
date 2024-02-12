@@ -3,7 +3,7 @@
         <h2 class="text-3xl text-center sm:text-left text-gray-900 dark:text-white font-bold">Mulai Absen
         </h2>
         <hr>
-        <div class="mt-3">
+        <div class="mt-3 dark:text-gray-200">
             <p><span class="font-bold">Kelas:</span> {{ $class->name }}</p>
             <p><span class="font-bold">Mata Pelajaran:</span> {{ $subject->name }}</p>
             <p><span class="font-bold">Tanggal: </span>{{ request()->date }}</p>

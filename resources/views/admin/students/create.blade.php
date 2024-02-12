@@ -9,6 +9,7 @@
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                     <div class="sm:col-span-1">
                         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Tambahkan Siswa Baru</h2>
+                        {{-- Nama Lengkap --}}
                         <div class="mb-3">
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
@@ -18,6 +19,7 @@
                                 value="{{ old('name') }}" required="">
                             <x-input-error :messages="$errors->get('name')" />
                         </div>
+                        {{-- NIS --}}
                         <div class="mb-3">
                             <label for="nis"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIS</label>
@@ -26,6 +28,7 @@
                                 value="{{ old('nis') }}" required="">
                             <x-input-error :messages="$errors->get('nis')" />
                         </div>
+                        {{-- NISN --}}
                         <div class="mb-3">
                             <label for="nisn"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NISN</label>
@@ -34,6 +37,7 @@
                                 value="{{ old('nisn') }}" required="">
                             <x-input-error :messages="$errors->get('nisn')" />
                         </div>
+                        {{-- Email --}}
                         <div class="mb-3">
                             <label for="email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
@@ -42,6 +46,7 @@
                                 placeholder="example@gmail.com" value="{{ old('email') }}" required="">
                             <x-input-error :messages="$errors->get('email')" />
                         </div>
+                        {{-- Kelas --}}
                         <div class="mb-3">
                             <label for="class"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kelas</label>
@@ -54,6 +59,7 @@
                             </select>
                             <x-input-error :messages="$errors->get('class_id')" />
                         </div>
+                        {{-- Angkatan --}}
                         <div class="mb-3">
                             <label for="force"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Angkatan</label>
@@ -66,6 +72,7 @@
                             </select>
                             <x-input-error :messages="$errors->get('force_id')" />
                         </div>
+                        {{-- Foto --}}
                         <div class="mb-3">
                             <label for="picture"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto</label>
@@ -77,6 +84,7 @@
                     <div class="sm:col-span-1">
                         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Biodata</h2>
                         <div class="sm:col-span-1">
+                            {{-- Tanggal Lahir --}}
                             <div class="mb-3">
                                 <label for="birth"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
@@ -86,6 +94,7 @@
                                     value="{{ old('birth') }}" required="">
                                 <x-input-error :messages="$errors->get('birth')" />
                             </div>
+                            {{-- Jenis Kelamin --}}
                             <div class="mb-3">
                                 <label for="nis"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
@@ -106,6 +115,7 @@
                                 </div>
                                 <x-input-error :messages="$errors->get('gender')" />
                             </div>
+                            {{-- Agama --}}
                             <div class="mb-3">
                                 <label for="religion"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Agama</label>
@@ -114,6 +124,7 @@
                                     value="{{ old('religion') }}" required="">
                                 <x-input-error :messages="$errors->get('religion')" />
                             </div>
+                            {{-- Nama IBU --}}
                             <div class="mb-3">
                                 <label for="mother"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
@@ -123,6 +134,7 @@
                                     value="{{ old('mother') }}" required="">
                                 <x-input-error :messages="$errors->get('mother')" />
                             </div>
+                            {{-- Nama Ayah --}}
                             <div class="mb-3">
                                 <label for="father"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
@@ -132,6 +144,7 @@
                                     value="{{ old('father') }}" required="">
                                 <x-input-error :messages="$errors->get('father')" />
                             </div>
+                            {{-- Alamat --}}
                             <div class="mb-3">
                                 <label for="address"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>

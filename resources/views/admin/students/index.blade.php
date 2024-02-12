@@ -14,8 +14,7 @@
             Tambah
         </x-outline-anchor>
 
-        <x-search-data />
-
+        <x-search-data :action="__('/students')"/>
     </div>
 
 

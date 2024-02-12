@@ -4,7 +4,7 @@
             @error($errors->all())
                 $message
             @enderror
-            <form action="{{ route('student.update', [$student->id]) }}" method="POST">
+            <form action="{{ route('student.update', [$student->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
@@ -62,6 +62,20 @@
                                 @endforeach
                             </select>
                             <x-input-error :messages="$errors->get('force_id')" />
+                        </div>
+                        @if ($student->picture !== 'default.png')
+                        <div class="mb-3">
+                            <input type="hidden" name="oldPicture" value="{{ $student->picture }}">
+                            <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Lama</p>
+                            <img class="w-40" src="{{asset("storage/$student->picture")}}" alt="Picture {{$student->user->name}}">
+                        </div>
+                        @endif
+                        {{-- Foto --}}
+                        <div class="mb-3">
+                            <label for="picture"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Foto Baru</label>
+                                <input name="picture" id="picture" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file" value="{{ old('picture') }}">
+                            <x-input-error :messages="$errors->get('picture')" />
                         </div>
                     </div>
 

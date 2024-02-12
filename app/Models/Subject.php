@@ -22,4 +22,16 @@ class Subject extends Model
     {
         return $this->hasMany(Attendance::class, 'subject_id', 'id');
     }
+
+    public function hasTeachers(): BelongsToMany
+    {
+        return $this->belongsToMany(Teacher::class, 'teachers_have_subjects', 'subject_id', 'teacher_id');
+    }
+
+    public function scopeFilter($query, $filter)
+    {
+        return $query->when($filter ?? false, function ($query, $search) {
+            $query->where('name', 'like', '%'. $search .'%');
+        });
+    }
 }

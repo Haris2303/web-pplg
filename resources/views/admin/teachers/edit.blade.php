@@ -4,7 +4,7 @@
             @error($errors->all())
                 $message
             @enderror
-            <form action="{{ route('teacher.update', [$teacher->id]) }}" method="POST">
+            <form action="{{ route('teacher.update', [$teacher->id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
@@ -26,6 +26,20 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                 value="{{ old('nip', $teacher->nip) }}" required="">
                             <x-input-error :messages="$errors->get('nip')" />
+                        </div>
+                        @if ($teacher->picture !== 'default.png')
+                        <div class="mb-3">
+                            <input type="hidden" name="oldPicture" value="{{ $teacher->picture }}">
+                            <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Lama</p>
+                            <img class="w-40" src="{{asset("storage/$teacher->picture")}}" alt="Picture {{$teacher->user->name}}">
+                        </div>
+                        @endif
+                        {{-- Foto --}}
+                        <div class="mb-3">
+                            <label for="picture"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Foto Baru</label>
+                                <input name="picture" id="picture" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file" value="{{ old('picture') }}">
+                            <x-input-error :messages="$errors->get('picture')" />
                         </div>
                         <div class="sm:col-span-1">
                             <div class="mb-3">

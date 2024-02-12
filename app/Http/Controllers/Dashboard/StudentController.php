@@ -14,12 +14,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
     public function index(): View
     {
-        $students = Student::latest()->paginate(10);
+        $students = Student::latest()->filter(request(['q']))->paginate(10);
 
         $data = [
             'students' => $students
@@ -112,7 +113,8 @@ class StudentController extends Controller
             'mother' => ['required'],
             'father' => ['required'],
             'class_id' => ['required'],
-            'force_id' => ['required']
+            'force_id' => ['required'],
+            'picture' => ['file', 'image', 'max:1024']
         ];
 
         $student = Student::where('id', $id)->firstOrFail();
@@ -129,6 +131,15 @@ class StudentController extends Controller
 
         // validasi student request
         $credential = $request->validate($rules);
+
+        // check picture
+        if($request->file('picture')) {
+            // if picture is changed
+            if($request->oldPicture) {
+                Storage::delete($request->oldPicture);
+            }
+            $credential['picture'] = $request->file('picture')->store('img/students/profile');
+        }
 
         // update user
         $student->update($credential);

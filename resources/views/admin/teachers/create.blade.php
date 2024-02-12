@@ -1,14 +1,12 @@
 <x-dashboard-layout>
     <section class="bg-white dark:bg-gray-900 shadow-md">
         <div class="py-8 px-4 mx-auto max-w-full lg:py-16">
-            @error($errors->all())
-                $message
-            @enderror
             <form action="{{ route('teacher.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                     <div class="sm:col-span-1">
                         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Tambahkan Guru Baru</h2>
+                        {{-- Nama Lengkap --}}
                         <div class="mb-3">
                             <label for="name"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama
@@ -18,6 +16,7 @@
                                 value="{{ old('name') }}" required="">
                             <x-input-error :messages="$errors->get('name')" />
                         </div>
+                        {{-- NIP --}}
                         <div class="mb-3">
                             <label for="nip"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NIP</label>
@@ -26,6 +25,7 @@
                                 value="{{ old('nip') }}" required="">
                             <x-input-error :messages="$errors->get('nip')" />
                         </div>
+                        {{-- Email --}}
                         <div class="mb-3">
                             <label for="email"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
@@ -34,17 +34,34 @@
                                 placeholder="example@gmail.com" value="{{ old('email') }}" required="">
                             <x-input-error :messages="$errors->get('email')" />
                         </div>
+                        {{-- Foto --}}
                         <div class="mb-3">
                             <label for="picture"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto</label>
                                 <input name="picture" id="picture" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file" value="{{ old('picture') }}">
                             <x-input-error :messages="$errors->get('picture')" />
                         </div>
+                        
+                        {{-- Mata Pelajaran --}}
+                        <div class="mb-3">
+                            <label class="text-sm mb-2 font-semibold text-gray-900 dark:text-white">Mata Pelajaran Yang Diambil</label>
+                            <ul class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                @foreach ($subjects as $subject)
+                                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                    <div class="flex items-center ps-3">
+                                        <input id="{{ $subject->id }}-checkbox" name="subjects[]" type="checkbox" value="{{ $subject->id }}" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                        <label for="{{ $subject->id }}-checkbox" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $subject->name }}</label>
+                                    </div>
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="sm:col-span-1">
                         <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Biodata</h2>
                         <div class="sm:col-span-1">
+                            {{-- Pendidikan --}}
                             <div class="mb-3">
                                 <label for="education"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pendidikan</label>
@@ -54,6 +71,7 @@
                                     required="">
                                 <x-input-error :messages="$errors->get('education')" />
                             </div>
+                            {{-- Tanggal Lahir --}}
                             <div class="mb-3">
                                 <label for="birth"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal
@@ -63,6 +81,7 @@
                                     value="{{ old('birth') }}" required="">
                                 <x-input-error :messages="$errors->get('birth')" />
                             </div>
+                            {{-- Jenis Kelamin --}}
                             <div class="mb-3">
                                 <label for="nis"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
@@ -83,6 +102,7 @@
                                 </div>
                                 <x-input-error :messages="$errors->get('gender')" />
                             </div>
+                            {{-- Agama --}}
                             <div class="mb-3">
                                 <label for="religion"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Agama</label>
@@ -91,6 +111,7 @@
                                     value="{{ old('religion') }}" required="">
                                 <x-input-error :messages="$errors->get('religion')" />
                             </div>
+                            {{-- Alamat --}}
                             <div class="mb-3">
                                 <label for="address"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat</label>

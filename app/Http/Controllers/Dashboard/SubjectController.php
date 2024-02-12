@@ -12,7 +12,7 @@ class SubjectController extends Controller
 {
     public function index(): View
     {
-        $subjects = Subject::latest()->paginate(10);
+        $subjects = Subject::latest()->filter(request('q'))->paginate(10);
 
         $data = [
             'subjects' => $subjects

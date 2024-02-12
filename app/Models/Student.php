@@ -32,4 +32,13 @@ class Student extends Model
     {
         return $this->hasMany(Attendance::class, 'student_id', 'id');
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        $query->when($filters['q'] ?? false, function ($query, $search) {
+            return $query->whereHas('user', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')->orWhere('nisn', 'like', '%' . $search . '%');
+            });
+        });
+    }
 }
