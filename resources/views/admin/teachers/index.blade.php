@@ -206,6 +206,18 @@
                         </span>
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        <p class="text-base leading-relaxed">
+                            Mata Pelajaran Yang Diambil
+                        </p>
+                    </th>
+                    <td class="">
+                        : <span class="text-base leading-relaxed" id="info-subjects">
+                            -
+                        </span>
+                    </td>
+                </tr>
             </table>
             <div>
                 <img src="#" alt="Picture" id="info-picture" class="w-52">
@@ -238,6 +250,13 @@
                     const picture = response.result.teacher.picture
                     const src = (picture === 'default.png') ? '/assets/profile/' + picture : `storage/${picture}`
                     $('#info-picture').attr('src', src)
+
+                    let textSubject = '';
+                    const subjects = response.result.subjects;
+                    for (let i = 0; i < subjects.length; i++) {
+                        textSubject += subjects[i].name + ', ';
+                    }
+                    $('#info-subjects').html((textSubject == '') ? 'Tidak ada' : textSubject)
                 }
             })
         })

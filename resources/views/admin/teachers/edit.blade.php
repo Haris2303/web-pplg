@@ -28,17 +28,21 @@
                             <x-input-error :messages="$errors->get('nip')" />
                         </div>
                         @if ($teacher->picture !== 'default.png')
-                        <div class="mb-3">
-                            <input type="hidden" name="oldPicture" value="{{ $teacher->picture }}">
-                            <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Lama</p>
-                            <img class="w-40" src="{{asset("storage/$teacher->picture")}}" alt="Picture {{$teacher->user->name}}">
-                        </div>
+                            <div class="mb-3">
+                                <input type="hidden" name="oldPicture" value="{{ $teacher->picture }}">
+                                <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Foto Lama</p>
+                                <img class="w-40" src="{{ asset("storage/$teacher->picture") }}"
+                                    alt="Picture {{ $teacher->user->name }}">
+                            </div>
                         @endif
                         {{-- Foto --}}
                         <div class="mb-3">
                             <label for="picture"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Foto Baru</label>
-                                <input name="picture" id="picture" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" type="file" value="{{ old('picture') }}">
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload Foto
+                                Baru</label>
+                            <input name="picture" id="picture"
+                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                type="file" value="{{ old('picture') }}">
                             <x-input-error :messages="$errors->get('picture')" />
                         </div>
                         <div class="sm:col-span-1">
@@ -51,6 +55,37 @@
                                     placeholder="Cth: S1 Teknik Informasi" required="">
                                 <x-input-error :messages="$errors->get('education')" />
                             </div>
+
+                            {{-- Mata Pelajaran --}}
+                            <div class="mb-3">
+                                {{-- oldSubjects --}}
+                                @foreach ($teacher->hasSubjects as $subject)
+                                    <input type="hidden" name="oldSubjects[]" value="{{$subject->id}}">
+                                @endforeach
+                                <label class="text-sm mb-2 font-semibold text-gray-900 dark:text-white">Mata Pelajaran
+                                    Yang Diambil</label>
+                                <ul
+                                    class="w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                    @foreach ($subjects as $subject)
+                                        <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                            <div class="flex items-center ps-3">
+                                                <input id="{{ $subject->id }}-checkbox" name="subjects[]"
+                                                    type="checkbox" 
+                                                    @foreach ($teacher->hasSubjects as $item)
+                                                        @if ($subject->id === $item->id)
+                                                            @checked(true)
+                                                        @endif
+                                                    @endforeach
+                                                    value="{{ $subject->id }}"
+                                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                                <label for="{{ $subject->id }}-checkbox"
+                                                    class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ $subject->name }}</label>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+
                             <div class="mb-3">
                                 <label for="birth"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal

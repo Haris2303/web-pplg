@@ -92,7 +92,8 @@ class TeacherController extends Controller
     public function edit($id): View
     {
         $data = [
-            'teacher' => Teacher::where('id', $id)->firstOrFail()
+            'teacher' => Teacher::where('id', $id)->firstOrFail(),
+            'subjects' => Subject::all()
         ];
 
         return view('admin.teachers.edit', $data);
@@ -138,6 +139,19 @@ class TeacherController extends Controller
 
         // update data
         $teacher->update($credential);
+
+        // change subjects
+        if($request->subjects) {
+            // dettach
+            foreach($request->oldSubjects as $subject) {
+                $teacher->hasSubjects()->detach($subject);
+            }
+
+            // attach
+            foreach($request->subjects as $subject) {
+                $teacher->hasSubjects()->attach($subject);
+            }
+        }
 
         return redirect()->route('teachers')->with('success', 'Data guru berhasil diubah!');
     }

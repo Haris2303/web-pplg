@@ -7,6 +7,7 @@ use App\Models\Attendance;
 use App\Models\Classes;
 use App\Models\Student;
 use App\Models\Subject;
+use App\Models\Teacher;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ class AttendanceResourceController extends Controller
         $data = [
             'attendances' => Attendance::where('teacher_id', Auth::user()->teacher->id)->latest()->get(),
             'classes' => Classes::latest()->get(),
-            'subjects' => Subject::latest()->get()
+            'subjects' => Teacher::where('id', Auth::user()->teacher->id)->first()->hasSubjects
         ];
 
         return view('teacher.attendances.index', $data);
