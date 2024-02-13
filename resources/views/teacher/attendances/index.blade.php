@@ -4,10 +4,6 @@
         <hr>
     </div>
 
-    @if (session()->has('success'))
-        <x-alert type="success" />
-    @endif
-
     <div class="my-10">
         <form action="{{ route('attendance.create') }}" method="GET">
             @csrf
@@ -46,13 +42,20 @@
         </form>
     </div>
 
+    @if (session()->has('success'))
+        <x-alert type="success" />
+    @endif
+
     <div class="mb-5">
         <h3 class="text-xl font-bold dark:text-white">Data Absensi</h3>
     </div>
 
     <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
-        <x-search-data :action="__('/attendances')"/>
+        <x-search-data :action="__('/attendance')" :placeholder="__('Search berdasarkan nama..')" />
+
+        <x-dropdown-search :title="__('Tanggal')" :items="$arrayDate"></x-dropdown-search>
     </div>
+
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-10">
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

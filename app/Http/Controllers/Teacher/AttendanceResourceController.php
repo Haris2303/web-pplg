@@ -19,10 +19,20 @@ class AttendanceResourceController extends Controller
      */
     public function index(): View
     {
+        $teacher_id = Auth::user()->teacher->id;
+        $attendances = Attendance::where('teacher_id', $teacher_id)->latest()->get();
+        
+        // Get datetime covert to array saving into $arrayDate
+        $arrayDate = [];
+        for ($i=0; $i < count($attendances); $i++) { 
+            $arrayDate[] = $attendances[$i]->datetime;
+        }
+
         $data = [
-            'attendances' => Attendance::where('teacher_id', Auth::user()->teacher->id)->latest()->get(),
+            'attendances' => Attendance::where('teacher_id', $teacher_id)->latest()->filter(request(['q']))->get(),
             'classes' => Classes::latest()->get(),
-            'subjects' => Teacher::where('id', Auth::user()->teacher->id)->first()->hasSubjects
+            'subjects' => Teacher::where('id', Auth::user()->teacher->id)->first()->hasSubjects,
+            'arrayDate' => array_unique($arrayDate)
         ];
 
         return view('teacher.attendances.index', $data);
@@ -58,6 +68,8 @@ class AttendanceResourceController extends Controller
                 'class_id' => $request->class_id
             ]);
         }
+
+        return redirect('/attendance')->with('success', 'Data absensi berhasil disimpan!');
     }
 
     /**

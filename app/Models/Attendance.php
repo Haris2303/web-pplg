@@ -26,4 +26,14 @@ class Attendance extends Model
     {
         return $this->belongsTo(Subject::class, 'subject_id', 'id');
     }
+
+    public function scopeFilter($query, array $filters)
+    {
+        return $query->when($filters['q'] ?? false, function ($query, $search) {
+            $query->whereHas('students', function($query) use ($search) {
+                $query->join('users', 'students.user_id', '=', 'users.id')
+                    ->where('name', 'like', "%$search%");
+            });
+        });
+    }
 }
